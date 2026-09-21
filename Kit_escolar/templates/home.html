@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema KITSEMED</title>
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+<body>
+    <h1>Bem-vindo ao Sistema KITSEMED</h1>
+
+    <h2>Escolas Cadastradas</h2>
+    <ul>
+        {% for escola in escolas %}
+            <li><strong>{{ escola.nome }}</strong> - Bairro: {{ escola.bairro }}</li>
+        {% empty %}
+            <li>Nenhuma escola cadastrada ainda.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
