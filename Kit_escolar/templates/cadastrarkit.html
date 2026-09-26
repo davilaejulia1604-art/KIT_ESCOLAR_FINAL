@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Kit Escolar - KITSEMED</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Sistema KITSEMED</h1>
+    <h2>Cadastrar Novo Kit Escolar</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- O Django vai criar a caixinha da Escola e da Quantidade sozinho! -->
+        <button type="submit">Salvar Kit</button>
+    </form>
+
+    <br>
+    <a href="{% url 'listarescola' %}">Voltar para a Lista de Escolas</a>
+</body>
+</html>

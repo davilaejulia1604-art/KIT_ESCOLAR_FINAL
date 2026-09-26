@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel KITSEMED</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; margin: 0; padding: 40px; color: #333; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { color: #1e3a8a; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-top: 0; }
+        h2 { color: #2563eb; margin-top: 30px; }
+        .btn-group { margin-bottom: 25px; }
+        .btn { display: inline-block; padding: 10px 20px; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px; margin-right: 10px; transition: background 0.2s; }
+        .btn-azul { background-color: #2563eb; }
+        .btn-azul:hover { background-color: #1d4ed8; }
+        .btn-verde { background-color: #10b981; }
+        .btn-verde:hover { background-color: #059669; }
+        .btn-vermelho { background-color: #ef4444; padding: 5px 10px; font-size: 12px; border-radius: 4px; }
+        .btn-vermelho:hover { background-color: #dc2626; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #f8fafc; color: #64748b; font-weight: 600; }
+        tr:hover { background-color: #f8fafc; }
+        .aviso-vazio { color: #94a3b8; font-style: italic; padding: 15px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏫 Sistema Administrativo KITSEMED</h1>
+
+    <!-- Botões de Navegação Superiores -->
+    <div class="btn-group">
+        <a href="{% url 'cadastrarescola' %}" class="btn btn-azul">➕ Cadastrar Nova Escola</a>
+        <a href="{% url 'cadastrarkit' %}" class="btn btn-verde">🎒 Cadastrar Novo Kit</a>
+    </div>
+
+    <!-- Tabela de Escolas -->
+    <h2>Escolas Cadastradas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome da Escola</th>
+                <th>Bairro</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for escola in escolas %}
+            <tr>
+                <td><strong>{{ escola.nome }}</strong></td>
+                <td>{{ escola.bairro }}</td>
+                <td><a href="{% url 'editar_escola' escola.id %}" class="btn" style="background-color: #f59e0b; padding: 5px 10px; font-size: 12px; border-radius: 4px; margin-right: 5px; color: white; text-decoration: none; font-weight: bold;">✏️ Editar</a>
+                <td><a href="{% url 'excluir_escola' escola.id %}" class="btn btn-vermelho" onclick="return confirm('Tem certeza que deseja excluir esta escola?')">❌ Excluir</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="aviso-vazio">Nenhuma escola cadastrada ainda.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Tabela de Kits -->
+    <h2>Kits Escolares Cadastrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Escola Vinculada</th>
+                <th>Quantidade de Alunos (1º ao 5º ano)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for kit in kits %}
+            <tr>
+                <td>{{ kit.escola.nome }}</td>
+                <td><strong>{{ kit.quantidadede_alunos_1_ao_5_ano }}</strong> alunos</td>
+                <a href="{% url 'editar_kit' kit.id %}" class="btn" style="background-color: #f59e0b; padding: 5px 10px; font-size: 12px; border-radius: 4px; margin-right: 5px; color: white; text-decoration: none; font-weight: bold;">✏️ Editar</a>
+                <td><a href="{% url 'excluir_kit' kit.id %}" class="btn btn-vermelho" onclick="return confirm('Tem certeza que deseja excluir este kit?')">❌ Excluir</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="aviso-vazio">Nenhum kit cadastrado ainda.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
